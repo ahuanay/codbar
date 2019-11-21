@@ -1,0 +1,122 @@
+<button class="btn btn-md btn-outline-primary btn-block" (click)="openModal(content)">Crear</button>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Crear Empleado</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="formEmpleado" (ngSubmit)="saveSubmitForm()">
+            <div class="row">
+                <div class="col-md-2 form-group">
+                    <label>DNI</label>
+                    <input
+                        type="text"
+                        formControlName="dni"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': validatorFormStatus && validatorForm.dni.errors }">
+                    <div *ngIf="validatorFormStatus && validatorForm.dni.errors" class="invalid-feedback">
+                        <div *ngIf="validatorForm.dni.errors.required">* Obligatorio</div>
+                    </div>
+                </div>
+                <div class="col-md-5 form-group">
+                    <label>Apellido Paterno</label>
+                    <input
+                        type="text"
+                        formControlName="apellidoPaterno"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': validatorFormStatus && validatorForm.apellidoPaterno.errors }">
+                    <div *ngIf="validatorFormStatus && validatorForm.apellidoPaterno.errors" class="invalid-feedback">
+                        <div *ngIf="validatorForm.apellidoPaterno.errors.required">* Obligatorio</div>
+                    </div>
+                </div>
+                <div class="col-md-5 form-group">
+                    <label>Apellido Materno</label>
+                    <input
+                        type="text"
+                        formControlName="apellidoMaterno"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': validatorFormStatus && validatorForm.apellidoMaterno.errors }">
+                    <div *ngIf="validatorFormStatus && validatorForm.apellidoMaterno.errors" class="invalid-feedback">
+                        <div *ngIf="validatorForm.apellidoMaterno.errors.required">* Obligatorio</div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Nombres</label>
+                    <input
+                        type="text"
+                        formControlName="nombres"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': validatorFormStatus && validatorForm.nombres.errors }">
+                    <div *ngIf="validatorFormStatus && validatorForm.nombres.errors" class="invalid-feedback">
+                        <div *ngIf="validatorForm.nombres.errors.required">* Obligatorio</div>
+                    </div>
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Teléfono</label>
+                    <input
+                        type="tel"
+                        formControlName="telefono"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': validatorFormStatus && validatorForm.telefono.errors }">
+                    <div *ngIf="validatorFormStatus && validatorForm.telefono.errors" class="invalid-feedback">
+                        <div *ngIf="validatorForm.telefono.errors.required">* Obligatorio</div>
+                    </div>
+                </div>
+                <div class="col-md-5 form-group">
+                    <label>Dirección</label>
+                    <input
+                        type="text"
+                        formControlName="direccion"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': validatorFormStatus && validatorForm.direccion.errors }">
+                    <div *ngIf="validatorFormStatus && validatorForm.direccion.errors" class="invalid-feedback">
+                        <div *ngIf="validatorForm.direccion.errors.required">* Obligatorio</div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Usuario</label>
+                    <input
+                        type="text"
+                        formControlName="userName"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': validatorFormStatus && validatorForm.userName.errors }">
+                    <div *ngIf="validatorFormStatus && validatorForm.userName.errors" class="invalid-feedback">
+                        <div *ngIf="validatorForm.userName.errors.required">* Obligatorio</div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Contraseña</label>
+                    <input
+                        type="password"
+                        formControlName="userPass"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': validatorFormStatus && validatorForm.userPass.errors }">
+                    <div *ngIf="validatorFormStatus && validatorForm.userPass.errors" class="invalid-feedback">
+                        <div *ngIf="validatorForm.userPass.errors.required">* Obligatorio</div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                        <label>Área</label>
+                    <select
+                        formControlName="area"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': validatorFormStatus && validatorForm.area.errors }">
+                        <option value="">Seleccione</option>
+                        <option value="ADMIN">Administración</option>
+                        <option value="ALMACEN">Almacén</option>
+                        <option value="VENTA">Ventas</option>
+                    </select>
+                    <div *ngIf="validatorFormStatus && validatorForm.area.errors" class="invalid-feedback">
+                        <div *ngIf="validatorForm.area.errors.required">* Obligatorio</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer row">
+                <button type="submit" class="btn btn-outline-dark">Guardar</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+      
+      
