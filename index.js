@@ -18,6 +18,7 @@ app.use(morgan('start'));
 app.use(express.json());
 
 app.use('/api/empleados', require('./routes/empleado.routes'));
+app.use('/api/usuarios-empleado', require('./routes/usuario-empleado.routes'));
 
 app.listen(app.get('port'), () => {
  console.log('Server on port: ', app.get('port'));
