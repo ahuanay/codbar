@@ -17,7 +17,7 @@ export class WebService {
     return this.http.get(this.API_Server + 'empleados');
   }
 
-  postCreateEmpleado(empleado): Observable<any> {
-    return this.http.post(this.API_Server + 'empleados', empleado);
+  postCreateUsuarioEmpleado(usuariosEmpleado): Observable<any> {
+    return this.http.post(this.API_Server + 'usuarios-empleado', usuariosEmpleado);
   }
 }

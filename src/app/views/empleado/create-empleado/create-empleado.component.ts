@@ -49,7 +49,7 @@ export class CreateEmpleadoComponent implements OnInit {
   }
 
   saveForm() {
-    this.webService.postCreateEmpleado(this.formEmpleado.value).subscribe(
+    this.webService.postCreateUsuarioEmpleado(this.formEmpleado.value).subscribe(
       response => {
         this.modalReference.close();
       },
