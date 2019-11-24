@@ -25,6 +25,7 @@ export class ListEmpleadoComponent implements OnInit {
     this.webService.getListEmpleado().subscribe(
       response => {
         this.listEmpleados = response;
+        console.log(this.listEmpleados)
       },
       error => {
         console.log(error);

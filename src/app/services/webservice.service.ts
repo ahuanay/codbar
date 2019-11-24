@@ -17,7 +17,17 @@ export class WebService {
     return this.http.get(this.API_Server + 'empleados');
   }
 
+  //UsuarioEmpleado
   postCreateUsuarioEmpleado(usuariosEmpleado): Observable<any> {
     return this.http.post(this.API_Server + 'usuarios-empleado', usuariosEmpleado);
+  }
+
+  //Producto
+  getListProducto(): Observable<any> {
+    return this.http.get(this.API_Server + 'productos');
+  }
+
+  postCreateProducto(producto): Observable<any> {
+    return this.http.post(this.API_Server + 'productos', producto);
   }
 }

@@ -1,0 +1,48 @@
+<div class="container">
+    <h3 class="text-center m-5">Lista Productos</h3>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <div class="row">
+                <div class="col-md-10">
+                    <input type="search" class="form-control" name="filterProducto" [(ngModel)]="filterProducto"  placeholder="buscar producto ...">
+                </div>
+                <div class="col-md-2">
+                    <app-create-producto [typeButton]="'create'" (reload)="reload()"></app-create-producto>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="thead-inverse">
+                        <tr class="text-center">
+                            <th scope="col" style="min-width: 20px;">#</th>
+                            <th scope="col" style="min-width: 50px;">Imagen</th>
+                            <th scope="col" style="min-width: 200px;">Nombre</th>
+                            <th scope="col" style="min-width: 100px;">Código de barras</th>
+                            <th scope="col" style="min-width: 100px;">Precio</th>
+                            <th scope="col" style="min-width: 100px;">Cantidad</th>
+                            <th scope="col" style="min-width: 100px;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listProductos | filter: filterProducto; let i = index" >
+                                <th scope="row" class="vertical-align text-center">{{ i + 1 }}</th>
+                                <td class="vertical-align text-center"><img src="{{ item.imagenUrl }}" class="img-fluid rounded" style="width: 50px;"></td>
+                                <td class="vertical-align">{{ item.nombre }}</td>
+                                <td class="vertical-align">{{ item.codBar }}</td>
+                                <td class="vertical-align">S/. {{ item.precio }}</td>
+                                <td class="vertical-align">{{ item.cantidad }} u.</td>
+                                <td class="vertical-align text-center">
+                                    <app-create-producto [typeButton]="'update'" (reload)="reload()"></app-create-producto>
+                                    
+                                    <button type="button" class="btn btn-danger btn-sm m-1">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

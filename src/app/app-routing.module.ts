@@ -8,7 +8,7 @@ export const AppRoutes: Routes = [
     component: FullComponent,
     children: [
       {
-        path: '', redirectTo: 'views/empleado', pathMatch: 'full'
+        path: '', redirectTo: 'dashboard/home', pathMatch: 'full'
       },
       {
         path: 'dashboard',
