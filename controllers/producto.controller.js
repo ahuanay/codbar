@@ -3,8 +3,8 @@ const ProductoModels = require('../models/producto');
 const controller = {};
 
 controller.getAllProducto = async (req, res) => {
-    const resp = await ProductoModels.find();
-    res.json(resp);
+    const productoModels = await ProductoModels.find();
+    res.json(productoModels);
 }
 
 controller.createProducto = async (req, res) => {
@@ -17,6 +17,24 @@ controller.getByIdProducto = async (req, res) => {
     const productoModels = await ProductoModels.findById(req.params.id);
     if(productoModels != null) {
         res.json(productoModels);
+    } else {
+        res.json({ status : 'Producto no existe' }); 
+    }
+}
+
+controller.getByCodBarProducto = async (req, res) => {
+    const productoModels = await ProductoModels.find({ codBar: req.params.codbar }).exec();
+    if(productoModels != null) {
+        const id = productoModels[0]._id;
+        const producto = {
+            nombre: productoModels[0].nombre,
+            codBar: productoModels[0].codBar,
+            imagenUrl: productoModels[0].imagenUrl,
+            precio: productoModels[0].precio,
+            cantidad: productoModels[0].cantidad  + 1,
+        } 
+        await ProductoModels.findByIdAndUpdate(id, { $set: producto });
+        res.json({ status : 'Producto registrado' }); 
     } else {
         res.json({ status : 'Producto no existe' }); 
     }
