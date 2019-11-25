@@ -7,7 +7,7 @@
                     <input type="search" class="form-control" name="filterProducto" [(ngModel)]="filterProducto"  placeholder="buscar producto ...">
                 </div>
                 <div class="col-md-2">
-                    <app-create-producto [typeButton]="'create'" (reload)="reload()"></app-create-producto>
+                    <app-create-producto [typeButton]="'create'" [id]="''" (reload)="reload()"></app-create-producto>
                 </div>
             </div>
         </div>
@@ -34,9 +34,8 @@
                                 <td class="vertical-align">S/. {{ item.precio }}</td>
                                 <td class="vertical-align">{{ item.cantidad }} u.</td>
                                 <td class="vertical-align text-center">
-                                    <app-create-producto [typeButton]="'update'" (reload)="reload()"></app-create-producto>
-                                    
-                                    <button type="button" class="btn btn-danger btn-sm m-1">Eliminar</button>
+                                    <app-create-producto [typeButton]="'update'" [id]="item._id" (reload)="reload()"></app-create-producto>
+                                    <app-delete-producto [id]="item._id" (reload)="reload()"></app-delete-producto>
                                 </td>
                             </tr>
                         </tbody>

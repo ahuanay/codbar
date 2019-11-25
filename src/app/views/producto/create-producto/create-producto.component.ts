@@ -10,6 +10,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CreateProductoComponent implements OnInit {
 
+  @Input() id;
   @Input() typeButton;
   @Output() reload = new EventEmitter();
 
@@ -20,7 +21,7 @@ export class CreateProductoComponent implements OnInit {
   public modalReference: NgbModalRef;
   get validatorForm() { return this.formProducto.controls; }
 
-  constructor(private webService: WebService,private formBuilder: FormBuilder, private modalService: NgbModal) { }
+  constructor(private webService: WebService, private formBuilder: FormBuilder, private modalService: NgbModal) { }
 
   ngOnInit() {
     if (this.typeButton === 'create') {
@@ -36,11 +37,14 @@ export class CreateProductoComponent implements OnInit {
   }
 
   inicializator() {
-    this.inicializatorEmpleadoForm();
+    this.inicializatorProductoForm();
     this.validatorFormStatus = false;
+    if (this.id !== '') {
+      this.inicializatorByIdProducto();
+    }
   }
 
-  inicializatorEmpleadoForm() {
+  inicializatorProductoForm() {
     this.formProducto = this.formBuilder.group({
       nombre: ['', Validators.required],
       codBar: ['', Validators.required],
@@ -50,16 +54,56 @@ export class CreateProductoComponent implements OnInit {
     });
   }
 
+  inicializatorByIdProducto() {
+    this.webService.getByIdProducto(this.id).subscribe(
+      response => {
+        this.formProducto.get('nombre').setValue(response.nombre);
+        this.formProducto.get('codBar').setValue(response.codBar);
+        this.formProducto.get('imagenUrl').setValue(response.imagenUrl);
+        this.formProducto.get('precio').setValue(response.precio);
+        this.formProducto.get('cantidad').setValue(response.cantidad);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   saveSubmitForm() {
     this.validatorFormStatus = true;
     if (this.formProducto.invalid) {
         return;
     }
-    this.saveForm();
+
+    if (this.id !== '') {
+      this.updateForm();
+    } else {
+      this.saveForm();
+    }
   }
 
   saveForm() {
     this.webService.postCreateProducto(this.formProducto.value).subscribe(
+      response => {
+        this.reload.emit();
+        this.modalReference.close();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  updateForm() {
+    const producto = {
+      nombre: this.formProducto.value.nombre,
+      codBar: this.formProducto.value.codBar,
+      imagenUrl: this.formProducto.value.imagenUrl,
+      precio: this.formProducto.value.precio,
+      cantidad: this.formProducto.value.cantidad,
+    };
+
+    this.webService.updateProducto(this.id, producto).subscribe(
       response => {
         this.reload.emit();
         this.modalReference.close();

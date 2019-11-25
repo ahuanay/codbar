@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WebService } from 'src/app/services/webservice.service';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-list-producto',
@@ -21,6 +22,10 @@ export class ListProductoComponent implements OnInit {
     this.listProductos = [];
     this.filterProducto = '';
     this.listProductosQuery();
+    const secondsCounter = interval(7000);
+    secondsCounter.subscribe(n => {
+      this.listProductosQuery();
+    });
   }
 
   listProductosQuery() {

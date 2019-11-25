@@ -1,0 +1,6 @@
+blockquote {
+    border-left: 5px solid rgba(21, 24, 192, 0.7);
+    padding-left: 5px;
+    font-size: 25px;
+    font-weight: 700;
+}

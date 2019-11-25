@@ -14,20 +14,32 @@ export class WebService {
 
   // Empleado
   getListEmpleado(): Observable<any> {
-    return this.http.get(this.API_Server + 'empleados');
+    return this.http.get(this.API_Server + 'empleados/');
   }
 
   //UsuarioEmpleado
   postCreateUsuarioEmpleado(usuariosEmpleado): Observable<any> {
-    return this.http.post(this.API_Server + 'usuarios-empleado', usuariosEmpleado);
+    return this.http.post(this.API_Server + 'usuarios-empleado/', usuariosEmpleado);
   }
 
   //Producto
   getListProducto(): Observable<any> {
-    return this.http.get(this.API_Server + 'productos');
+    return this.http.get(this.API_Server + 'productos/');
+  }
+
+  getByIdProducto(id): Observable<any> {
+    return this.http.get(this.API_Server + 'productos/' + id);
   }
 
   postCreateProducto(producto): Observable<any> {
-    return this.http.post(this.API_Server + 'productos', producto);
+    return this.http.post(this.API_Server + 'productos/', producto);
+  }
+
+  updateProducto(id, producto): Observable<any> {
+    return this.http.put(this.API_Server + 'productos/' + id, producto)
+  }
+
+  deleteProducto(id): Observable<any> {
+    return this.http.delete(this.API_Server + 'productos/' + id);
   }
 }

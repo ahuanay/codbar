@@ -15,7 +15,7 @@ export class ListEmpleadoComponent implements OnInit {
 
   ngOnInit() {
     this.listEmpleadosQuery();
-    const secondsCounter = interval(5000);
+    const secondsCounter = interval(7000);
     secondsCounter.subscribe(n => {
       this.listEmpleadosQuery();
     });

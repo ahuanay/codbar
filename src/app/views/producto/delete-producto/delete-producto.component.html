@@ -1,1 +1,15 @@
-<p>delete-producto works!</p>
+<button type="button" class="btn btn-danger btn-sm m-1" (click)="openModal(content)" [hidden]="hiddenUpdateButton">Eliminar</button>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Producto</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <h3 class="text-left">Desea eliminar el producto?</h3>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteProducto()">Eliminar</button>
+        <button type="button" class="btn btn-outline-danger" (click)="d('Cross click')">Salir</button>
+    </div>
+</ng-template>
