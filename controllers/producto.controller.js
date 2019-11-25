@@ -43,9 +43,11 @@ controller.getByCodBarProducto = async (req, res) => {
 controller.getUpdateProducto = async (req, res) => {
     const { id } = req.params;
     const productoModels = {
-        nombres: req.body.nombres,
-        apellidoPaterno: req.body.apellidoPaterno,
-        apellidoMaterno: req.body.apellidoMaterno
+        nombre: req.body.nombre,
+        codBar: req.body.codBar,
+        imagenUrl: req.body.imagenUrl,
+        precio: req.body.precio,
+        cantidad: req.body.cantidad
     }
     await ProductoModels.findByIdAndUpdate(id, { $set: productoModels }, { new: true });
     res.json({ status: 'Producto actualizado' });
