@@ -14,8 +14,7 @@ controller.createUsuarioEmpleado = async (req, res) => {
 
     const usuario = {
         email: req.body.email,
-        user_name: req.body.user_name,
-        user_pass: req.body.user_pass,
+        password: req.body.password,
         avatar: req.body.avatar,
         estado: req.body.estado,
         empleado_id: empleadoModels._id
