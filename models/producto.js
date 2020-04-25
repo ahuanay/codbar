@@ -9,4 +9,4 @@ const ProductoSchema = new Schema({
     cantidad: { type: Number, default: 1, required: true },
 });
 
-module.exports = mongoose.model('producto', ProductoSchema);
+module.exports = mongoose.model('productos', ProductoSchema);

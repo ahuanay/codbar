@@ -10,6 +10,7 @@ const EmpleadoSchema = new Schema({
     sexo: { type: String, required: true },
     numero_celular: { type: String, required: true },
     direccion: { type: String, required: true },
+    usuario_id: { type: Schema.Types.ObjectId, ref: 'usuario' },
 });
 
-module.exports = mongoose.model('empleado', EmpleadoSchema);
+module.exports = mongoose.model('empleados', EmpleadoSchema);

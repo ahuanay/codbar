@@ -9,4 +9,6 @@ router.get('/:id', usuario.getByIdUsuario);
 router.put('/:id', usuario.getUpdateUsuario);
 router.delete('/:id', usuario.getDeleteUsuario);
 
+router.post('/login', usuario.getLogin);
+
 module.exports = router;
