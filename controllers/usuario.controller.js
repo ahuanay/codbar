@@ -29,7 +29,7 @@ controller.getUpdateUsuario = async (req, res) => {
     const { id } = req.params;
     const usuarioModel = {
         email: req.body.email,
-        avatar_url: req.body.avatar,
+        avatar_url: req.body.avatar_url,
         estado: req.body.estado,
         rol_id: req.body.rol_id,
     }
