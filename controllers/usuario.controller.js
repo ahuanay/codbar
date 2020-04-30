@@ -29,7 +29,7 @@ controller.getUpdateUsuario = async (req, res) => {
     const { id } = req.params;
     const usuarioModel = {
         email: req.body.email,
-        avatar: req.body.avatar,
+        avatar_url: req.body.avatar,
         estado: req.body.estado,
         rol_id: req.body.rol_id,
     }
@@ -67,7 +67,7 @@ controller.getLogin = async (req, res) => {
         const empleadoModels = await EmpleadoModels.where('usuario_id', usuarioModels[0]._id);
         const resp = {
             user_id: usuarioModels[0]._id,
-            avatar: usuarioModels[0].avatar,
+            avatar_url: usuarioModels[0].avatar_url,
             email: usuarioModels[0].email,
             tipo_documento: empleadoModels[0].tipo_documento,
             numero_documento: empleadoModels[0].numero_documento,

@@ -8,7 +8,7 @@ controller.createUsuarioEmpleado = async (req, res) => {
     const usuario = {
         email: req.body.email,
         password: generateHash(req.body.password),
-        avatar: req.body.avatar,
+        avatar_url: req.body.avatar,
         estado: req.body.estado,
         rol_id: req.body.rol_id,
     }
