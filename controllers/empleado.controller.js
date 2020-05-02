@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const EmpleadoModels = require('../models/empleado');
 const UsuarioModels = require('../models/usuario');
 
