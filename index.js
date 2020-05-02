@@ -21,7 +21,6 @@ app.use(express.json());
 
 app.use('/api/empleados', require('./routes/empleado.routes'));
 app.use('/api/usuarios', require('./routes/usuario.routes'));
-app.use('/api/usuarios-empleado', require('./routes/usuario-empleado.routes'));
 app.use('/api/productos', require('./routes/producto.routes'));
 app.use('/api/roles', require('./routes/rol.routes'));
 app.use('/api/menus', require('./routes/menu.routes'));
