@@ -44,7 +44,7 @@ controller.getByIdEmpleado = async (req, res) => {
     // var response = new Object();
     const empleadoModels = await EmpleadoModels.findById(req.params.id);
     if(empleadoModels == null) {
-        res.json({ error : 'El empleado no existe' });
+        res.status(404).json({ error : 'El empleado no existe' });
         return;
     }
     const usuarioModels =  await UsuarioModels.findById(empleadoModels.usuario_id);
@@ -81,7 +81,7 @@ controller.getByIdEmpleado = async (req, res) => {
 
 controller.putEmpleado = async (req, res) => {
     const { id } = req.params;
-    const empleadoModel = {
+    const empleado = {
         tipo_documento: req.body.tipo_documento,
         numero_documento: req.body.numero_documento,
         apellido_paterno: req.body.apellido_paterno,
@@ -91,7 +91,7 @@ controller.putEmpleado = async (req, res) => {
         numero_celular: req.body.numero_celular,
         direccion: req.body.direccion,
     }
-    const empleadoModels = await EmpleadoModels.findByIdAndUpdate(id, { $set: empleadoModel }, { new: true });
+    const empleadoModels = await EmpleadoModels.findByIdAndUpdate(id, { $set: empleado }, { new: true });
     res.status(200).json(empleadoModels);
 }
 

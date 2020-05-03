@@ -16,7 +16,7 @@ controller.createMenu = async (req, res) => {
 controller.getByIdMenu = async (req, res) => {
     const menuModels = await MenuModels.findById(req.params.id);
     if(menuModels == null) {
-        res.json({ error : 'El menu no existe' });
+        res.status(404).json({ error : 'El menu no existe' });
         return;
     }
     res.status(200).json(menuModels);
@@ -24,10 +24,10 @@ controller.getByIdMenu = async (req, res) => {
 
 controller.putMenu = async (req, res) => {
     const { id } = req.params;
-    const menuModel = {
+    const menu = {
         nombre: req.body.nombre,
     }
-    const menuModels = await MenuModels.findByIdAndUpdate(id, { $set: menuModel }, { new: true });
+    const menuModels = await MenuModels.findByIdAndUpdate(id, { $set: menu }, { new: true });
     res.status(200).json(menuModels);
 }
 

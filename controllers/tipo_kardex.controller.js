@@ -16,7 +16,7 @@ controller.createTipoKardex = async (req, res) => {
 controller.getByIdTipoKardex = async (req, res) => {
     const tipoKardexModels = await TipoKardexModels.findById(req.params.id);
     if(tipoKardexModels == null) {
-        res.json({ error : 'El tipo kardex no existe' });
+        res.status(404).json({ error : 'El tipo kardex no existe' });
         return;
     }
     res.status(200).json(tipoKardexModels);

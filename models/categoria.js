@@ -10,6 +10,7 @@ const schemaOptions = {
 
 const CategoriaSchema = new Schema({
     nombre: { type: String, required: true },
+    tallas: { type: [Number], required: true },
     estado: { type: Boolean, required: true }
 }, schemaOptions);
 

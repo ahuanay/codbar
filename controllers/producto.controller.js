@@ -1,61 +1,68 @@
 const ProductoModels = require('../models/producto');
+const ProductoTallaModels = require('../models/producto_talla');
 
 const controller = {};
 
 controller.getAllProducto = async (req, res) => {
     const productoModels = await ProductoModels.find();
-    res.json(productoModels);
+    res.status(200).json(productoModels);
 }
 
 controller.createProducto = async (req, res) => {
-    const productoModels = new ProductoModels(req.body);
+
+    const producto = {
+        precio: req.body.precio,
+        fecha: req.body.fecha,
+        hora: req.body.hora,
+        empleado_id: req.body.empleado_id,
+        tipo_kardex_id: req.body.tipo_kardex_id,
+        tienda_id: req.body.tienda_id,
+        modelo_id: req.body.modelo_id,
+        categoria_id: req.body.categoria_id,
+        tipo_cuero_id: req.body.tipo_cuero_id,
+        color_id: req.body.color_id
+    }
+
+    const productoModels = new ProductoModels(producto);
     await productoModels.save();
-    res.json({ status : 'Producto guardado' }); 
+
+    const tallas = req.body.tallas;
+
+    for (let i = 0; i < tallas.length; i++) {
+        var productos_talla = {
+            talla: tallas[i].talla,
+            cantidad: tallas[i].cantidad,
+            producto_id: productoModels._id
+        }
+    
+        var ProductoTallaModels = new ProductoTallaModels(productos_talla);
+        await ProductoTallaModels.save();
+    }
+
+    res.status(201).json(productoModels); 
 }
 
 controller.getByIdProducto = async (req, res) => {
     const productoModels = await ProductoModels.findById(req.params.id);
-    if(productoModels != null) {
-        res.json(productoModels);
-    } else {
-        res.json({ error : 'Producto no existe' }); 
+    if(productoModels == null) {
+        res.status(404).json({ error : 'El producto kardex no existe' });
+        return;
     }
+    res.status(200).json(productoModels);
 }
 
-controller.getByCodBarProducto = async (req, res) => {
-    const productoModels = await ProductoModels.find({ codBar: req.params.codbar }).exec();
-    if(productoModels != null) {
-        const id = productoModels[0]._id;
-        const producto = {
-            nombre: productoModels[0].nombre,
-            codBar: productoModels[0].codBar,
-            imagenUrl: productoModels[0].imagenUrl,
-            precio: productoModels[0].precio,
-            cantidad: productoModels[0].cantidad  + 1,
-        } 
-        await ProductoModels.findByIdAndUpdate(id, { $set: producto });
-        res.json({ status : 'Producto registrado' }); 
-    } else {
-        res.json({ error : 'Producto no existe' }); 
-    }
-}
-
-controller.getUpdateProducto = async (req, res) => {
+controller.putProducto = async (req, res) => {
     const { id } = req.params;
-    const productoModels = {
+    const producto = {
         nombre: req.body.nombre,
-        codBar: req.body.codBar,
-        imagenUrl: req.body.imagenUrl,
-        precio: req.body.precio,
-        cantidad: req.body.cantidad
     }
-    await ProductoModels.findByIdAndUpdate(id, { $set: productoModels }, { new: true });
-    res.json({ status: 'Producto actualizado' });
+    const productoModels = await ProductoModels.findByIdAndUpdate(id, { $set: producto }, { new: false });
+    res.status(200).json(productoModels);
 }
 
-controller.getDeleteProducto = async (req, res) => {
-    await ProductoModels.findByIdAndRemove(req.params.id);
-    res.json({ status: 'Producto eliminado' });
+controller.deleteProducto = async (req, res) => {
+    const productoModels = await ProductoModels.findByIdAndRemove(req.params.id);
+    res.status(200).json(productoModels);
 }
 
 module.exports = controller;

@@ -19,7 +19,7 @@ controller.createUsuario = async (req, res) => {
 controller.getByIdUsuario = async (req, res) => {
     const usuarioModels = await UsuarioModels.findById(req.params.id);
     if(usuarioModels == null) {
-        res.json({ error : 'El usuario no existe' });
+        res.status(404).json({ error : 'El usuario no existe' });
         return;
     }
     res.json(usuarioModels);

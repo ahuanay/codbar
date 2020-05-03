@@ -24,6 +24,11 @@ app.use('/api/roles', require('./routes/rol.routes'));
 app.use('/api/menus', require('./routes/menu.routes'));
 app.use('/api/tipos-kardex', require('./routes/tipo_kardex.routes'));
 app.use('/api/productos-kardex', require('./routes/producto_kardex.routes'));
+app.use('/api/categorias', require('./routes/categoria.routes'));
+app.use('/api/colores', require('./routes/color.routes'));
+app.use('/api/modelos', require('./routes/modelo.routes'));
+app.use('/api/tiendas', require('./routes/tienda.routes'));
+app.use('/api/tipos_cuero', require('./routes/tipo_cuero.routes'));
 
 app.listen(app.get('port'), () => {
     console.log('Server on port: ', app.get('port'));

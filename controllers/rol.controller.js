@@ -24,10 +24,10 @@ controller.getByIdRol = async (req, res) => {
 
 controller.putRol = async (req, res) => {
     const { id } = req.params;
-    const rolModel = {
+    const rol = {
         nombre: req.body.nombre,
     }
-    const rolModels = await RolModels.findByIdAndUpdate(id, { $set: rolModel }, { new: true });
+    const rolModels = await RolModels.findByIdAndUpdate(id, { $set: rol }, { new: true });
     res.status(200).json(rolModels);
 }
 
