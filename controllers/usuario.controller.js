@@ -69,6 +69,7 @@ controller.getLogin = async (req, res) => {
             user_id: usuarioModels[0]._id,
             avatar_url: usuarioModels[0].avatar_url,
             email: usuarioModels[0].email,
+            _id: empleadoModels[0]._id,
             tipo_documento: empleadoModels[0].tipo_documento,
             numero_documento: empleadoModels[0].numero_documento,
             apellido_paterno: empleadoModels[0].apellido_paterno,
