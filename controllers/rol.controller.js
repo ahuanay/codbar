@@ -22,7 +22,7 @@ controller.getByIdRol = async (req, res) => {
     res.status(200).json(rolModels);
 }
 
-controller.getUpdateRol = async (req, res) => {
+controller.putRol = async (req, res) => {
     const { id } = req.params;
     const rolModel = {
         nombre: req.body.nombre,
@@ -31,7 +31,7 @@ controller.getUpdateRol = async (req, res) => {
     res.status(200).json(rolModels);
 }
 
-controller.getDeleteRol = async (req, res) => {
+controller.deleteRol = async (req, res) => {
     const rolModels = await RolModels.findByIdAndRemove(req.params.id);
     res.status(200).json(rolModels);
 }

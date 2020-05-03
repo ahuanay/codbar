@@ -1,8 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
-const {
-    mongoose
-} = require('./config/database')
+const { mongoose } = require('./config/database')
 
 const app = express();
 
@@ -24,6 +22,8 @@ app.use('/api/usuarios', require('./routes/usuario.routes'));
 app.use('/api/productos', require('./routes/producto.routes'));
 app.use('/api/roles', require('./routes/rol.routes'));
 app.use('/api/menus', require('./routes/menu.routes'));
+app.use('/api/tipos-kardex', require('./routes/tipo_kardex.routes'));
+app.use('/api/productos-kardex', require('./routes/producto_kardex.routes'));
 
 app.listen(app.get('port'), () => {
     console.log('Server on port: ', app.get('port'));

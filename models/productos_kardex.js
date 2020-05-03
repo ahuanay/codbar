@@ -5,11 +5,15 @@ const { Schema } = mongoose;
 const schemaOptions = {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
     versionKey: false,
-    collection: 'productos'
+    collection: 'productos_kardex'
 };
 
-const ProductoSchema = new Schema({
+const ProductoKardexSchema = new Schema({
     precio: { type: Number, required: true },
+    fecha: { type: Date, required: true },
+    hora: { type: String, required: true },
+    empleado_id: { type: Schema.Types.ObjectId, ref: 'empleado' },
+    tipo_kardex_id: { type: Schema.Types.ObjectId, ref: 'tipo_kardex' },
     tienda_id: { type: Schema.Types.ObjectId, ref: 'tienda' },
     modelo_id: { type: Schema.Types.ObjectId, ref: 'modelo' },
     categoria_id: { type: Schema.Types.ObjectId, ref: 'categoria' },
@@ -17,4 +21,4 @@ const ProductoSchema = new Schema({
     color_id: { type: Schema.Types.ObjectId, ref: 'color' },
 }, schemaOptions);
 
-module.exports = mongoose.model('producto', ProductoSchema);
+module.exports = mongoose.model('producto_kardex', ProductoKardexSchema);

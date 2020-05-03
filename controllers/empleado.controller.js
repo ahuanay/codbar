@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const EmpleadoModels = require('../models/empleado');
 const UsuarioModels = require('../models/usuario');
+const RolModels = require('../models/rol');
 
 const controller = {};
 
@@ -35,16 +36,47 @@ controller.createEmpleado = async (req, res) => {
 
     const empleadoModels = new EmpleadoModels(empleado);
     await empleadoModels.save();
+    
     res.status(201).json(empleadoModels); 
 }
 
 controller.getByIdEmpleado = async (req, res) => {
+    // var response = new Object();
     const empleadoModels = await EmpleadoModels.findById(req.params.id);
     if(empleadoModels == null) {
-        res.json({ status : 'El empleado no existe' });
+        res.json({ error : 'El empleado no existe' });
         return;
     }
-    res.status(200).json(empleadoModels);
+    const usuarioModels =  await UsuarioModels.findById(empleadoModels.usuario_id);
+    const rolModels =  await RolModels.findById(usuarioModels.rol_id);
+
+
+    var response = {
+        _id: empleadoModels._id,
+        tipo_documento: empleadoModels.tipo_documento,
+        numero_documento: empleadoModels.numero_documento,
+        apellido_paterno: empleadoModels.apellido_paterno,
+        apellido_materno: empleadoModels.apellido_materno,
+        nombres: empleadoModels.nombres,
+        sexo: empleadoModels.sexo,
+        numero_celular: empleadoModels.numero_celular,
+        direccion: empleadoModels.direccion,
+        usuario_id: empleadoModels.usuario_id,
+        usuario: {
+            _id: usuarioModels._id,
+            email: usuarioModels.email,
+            password: usuarioModels.password,
+            avatar_url: usuarioModels.avatar_url,
+            estado: usuarioModels.estado,
+            rol_id: usuarioModels.rol_id,
+            rol: {
+                _id: rolModels._id,
+                nombre: rolModels.nombre
+            }
+        }
+    }
+    
+    res.status(200).json(response);
 }
 
 controller.putEmpleado = async (req, res) => {

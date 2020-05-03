@@ -18,7 +18,7 @@ controller.getByIdProducto = async (req, res) => {
     if(productoModels != null) {
         res.json(productoModels);
     } else {
-        res.json({ status : 'Producto no existe' }); 
+        res.json({ error : 'Producto no existe' }); 
     }
 }
 
@@ -36,7 +36,7 @@ controller.getByCodBarProducto = async (req, res) => {
         await ProductoModels.findByIdAndUpdate(id, { $set: producto });
         res.json({ status : 'Producto registrado' }); 
     } else {
-        res.json({ status : 'Producto no existe' }); 
+        res.json({ error : 'Producto no existe' }); 
     }
 }
 

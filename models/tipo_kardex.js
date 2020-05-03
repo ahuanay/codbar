@@ -5,11 +5,11 @@ const { Schema } = mongoose;
 const schemaOptions = {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
     versionKey: false,
-    collection: 'roles'
+    collection: 'tipos_kardex'
 };
 
-const RolSchema = new Schema({
+const TipoKardexSchema = new Schema({
     nombre: { type: String, required: true },
 }, schemaOptions);
 
-module.exports = mongoose.model('role', RolSchema);
+module.exports = mongoose.model('tipo_kardex', TipoKardexSchema);

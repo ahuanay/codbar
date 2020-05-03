@@ -1,5 +1,12 @@
 const mongoose = require('mongoose');
+
 const { Schema } = mongoose;
+
+const schemaOptions = {
+    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
+    versionKey: false,
+    collection: 'empleados'
+};
 
 const EmpleadoSchema = new Schema({
     tipo_documento: { type: String, required: true },
@@ -11,6 +18,6 @@ const EmpleadoSchema = new Schema({
     numero_celular: { type: String, required: true },
     direccion: { type: String, required: true },
     usuario_id: { type: Schema.Types.ObjectId, ref: 'usuario' },
-});
+}, schemaOptions);
 
-module.exports = mongoose.model('empleados', EmpleadoSchema);
+module.exports = mongoose.model('empleado', EmpleadoSchema);

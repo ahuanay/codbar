@@ -5,11 +5,12 @@ const { Schema } = mongoose;
 const schemaOptions = {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
     versionKey: false,
-    collection: 'roles'
+    collection: 'colores'
 };
 
-const RolSchema = new Schema({
+const ColorSchema = new Schema({
     nombre: { type: String, required: true },
+    estado: { type: Boolean, required: true }
 }, schemaOptions);
 
-module.exports = mongoose.model('role', RolSchema);
+module.exports = mongoose.model('color', ColorSchema);

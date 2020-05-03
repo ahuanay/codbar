@@ -5,11 +5,13 @@ const { Schema } = mongoose;
 const schemaOptions = {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
     versionKey: false,
-    collection: 'roles'
+    collection: 'tiendas'
 };
 
-const RolSchema = new Schema({
+const TiendaSchema = new Schema({
     nombre: { type: String, required: true },
+    direccion: { type: String, required: true },
+    estado: { type: Boolean, required: true }
 }, schemaOptions);
 
-module.exports = mongoose.model('role', RolSchema);
+module.exports = mongoose.model('tienda', TiendaSchema);

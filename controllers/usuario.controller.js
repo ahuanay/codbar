@@ -19,7 +19,7 @@ controller.createUsuario = async (req, res) => {
 controller.getByIdUsuario = async (req, res) => {
     const usuarioModels = await UsuarioModels.findById(req.params.id);
     if(usuarioModels == null) {
-        res.json({ status : 'Usuario no existe' });
+        res.json({ error : 'El usuario no existe' });
         return;
     }
     res.json(usuarioModels);
@@ -81,8 +81,6 @@ controller.getLogin = async (req, res) => {
         res.status(200).json(resp);
     }
 }
-
-var generateHash = (password) => { return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null); };
 
 var validatePassword = (password, password_registered) => { return bcrypt.compareSync(password, password_registered); };
 
