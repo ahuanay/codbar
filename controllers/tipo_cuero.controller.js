@@ -7,6 +7,17 @@ controller.getAllTipoCuero = async (req, res) => {
     res.status(200).json(tipoCueroModels);
 }
 
+controller.getActiveTipoCuero = async (req, res) => {
+    var activosModels = [];
+    const tipoCueroModels = await TipoCueroModels.find();
+    tipoCueroModels.forEach(e => {
+        if(e.estado) {
+            activosModels.push(e);
+        }
+    });
+    res.status(200).json(activosModels);
+}
+
 controller.createTipoCuero = async (req, res) => {
     const tipoCueroModels = new TipoCueroModels(req.body);
     await tipoCueroModels.save();

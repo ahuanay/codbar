@@ -7,6 +7,17 @@ controller.getAllColor = async (req, res) => {
     res.status(200).json(colorModels);
 }
 
+controller.getActiveColor = async (req, res) => {
+    var activosModels = [];
+    const colorModels = await ColorModels.find();
+    colorModels.forEach(e => {
+        if(e.estado) {
+            activosModels.push(e);
+        }
+    });
+    res.status(200).json(activosModels);
+}
+
 controller.createColor = async (req, res) => {
     const colorModels = new ColorModels(req.body);
     await colorModels.save();

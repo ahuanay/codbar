@@ -4,6 +4,7 @@ const router = express.Router();
 const modelo = require('../controllers/modelo.controller');
 
 router.get('/', modelo.getAllModelo);
+router.get('/activos/', modelo.getActiveModelo);
 router.post('/', modelo.createModelo);
 router.get('/:id', modelo.getByIdModelo);
 router.put('/:id', modelo.putModelo);

@@ -7,6 +7,17 @@ controller.getAllTienda = async (req, res) => {
     res.status(200).json(tiendaModels);
 }
 
+controller.getActiveTienda = async (req, res) => {
+    var activosModels = [];
+    const tiendaModels = await TiendaModels.find();
+    tiendaModels.forEach(e => {
+        if(e.estado) {
+            activosModels.push(e);
+        }
+    });
+    res.status(200).json(activosModels);
+}
+
 controller.createTienda = async (req, res) => {
     const tiendaModels = new TiendaModels(req.body);
     await tiendaModels.save();

@@ -7,6 +7,17 @@ controller.getAllCategoria = async (req, res) => {
     res.status(200).json(categoriaModels);
 }
 
+controller.getActiveCategoria = async (req, res) => {
+    var activosModels = [];
+    const categoriaModels = await CategoriaModels.find();
+    categoriaModels.forEach(e => {
+        if(e.estado) {
+            activosModels.push(e);
+        }
+    });
+    res.status(200).json(activosModels);
+}
+
 controller.createCategoria = async (req, res) => {
     const categoriaModels = new CategoriaModels(req.body);
     await categoriaModels.save();

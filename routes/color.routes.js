@@ -4,6 +4,7 @@ const router = express.Router();
 const color = require('../controllers/color.controller');
 
 router.get('/', color.getAllColor);
+router.get('/activos/', color.getActiveColor);
 router.post('/', color.createColor);
 router.get('/:id', color.getByIdColor);
 router.put('/:id', color.putColor);

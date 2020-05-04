@@ -7,6 +7,17 @@ controller.getAllModelo = async (req, res) => {
     res.status(200).json(modeloModels);
 }
 
+controller.getActiveModelo = async (req, res) => {
+    var activosModels = [];
+    const modeloModels = await ModeloModels.find();
+    modeloModels.forEach(e => {
+        if(e.estado) {
+            activosModels.push(e);
+        }
+    });
+    res.status(200).json(activosModels);
+}
+
 controller.createModelo = async (req, res) => {
     const modeloModels = new ModeloModels(req.body);
     await modeloModels.save();
