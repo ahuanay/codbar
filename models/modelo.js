@@ -10,7 +10,7 @@ const schemaOptions = {
 
 const ModeloSchema = new Schema({
     nombre: { type: String, required: true },
-    direccion: { type: String, required: true },
+    imagen_url: { type: String, required: true },
     estado: { type: Boolean, required: true }
 }, schemaOptions);
 

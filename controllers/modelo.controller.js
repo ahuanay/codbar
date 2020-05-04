@@ -37,6 +37,7 @@ controller.putModelo = async (req, res) => {
     const { id } = req.params;
     const modelo = {
         nombre: req.body.nombre,
+        imagen_url: req.body.imagen_url,
         estado: req.body.estado
     }
     const modeloModels = await ModeloModels.findByIdAndUpdate(id, { $set: modelo }, { new: true });
