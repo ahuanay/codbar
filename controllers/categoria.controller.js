@@ -26,7 +26,8 @@ controller.putCategoria = async (req, res) => {
     const { id } = req.params;
     const categoria = {
         nombre: req.body.nombre,
-        tallas: req.body.tallas
+        tallas: req.body.tallas,
+        estado: req.body.estado
     }
     const categoriaModels = await CategoriaModels.findByIdAndUpdate(id, { $set: categoria }, { new: true });
     res.status(200).json(categoriaModels);

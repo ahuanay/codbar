@@ -26,6 +26,7 @@ controller.putTienda = async (req, res) => {
     const { id } = req.params;
     const tienda = {
         nombre: req.body.nombre,
+        direccion: req.body.direccion,
         estado: req.body.estado
     }
     const tiendaModels = await TiendaModels.findByIdAndUpdate(id, { $set: tienda }, { new: true });

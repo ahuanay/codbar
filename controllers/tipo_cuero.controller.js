@@ -26,6 +26,7 @@ controller.putTipoCuero = async (req, res) => {
     const { id } = req.params;
     const tipo_cuero = {
         nombre: req.body.nombre,
+        estado: req.body.estado
     }
     const tipoCueroModels = await TipoCueroModels.findByIdAndUpdate(id, { $set: tipo_cuero }, { new: true });
     res.status(200).json(tipoCueroModels);
