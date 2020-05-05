@@ -1,14 +1,44 @@
+const moment = require('moment');
+
 const ProductoKardexModels = require('../models/producto_kardex');
 const ProductoTallaKardexModels = require('../models/producto_talla_kardex');
 const TipoKardexModels = require('../models/tipo_kardex');
 const ProductoModels = require('../models/producto');
 const ProductoTallaModels = require('../models/producto_talla');
+const ModeloModels = require('../models/modelo');
+const TipoCueroModels = require('../models/tipo_cuero');
+const ColorModels = require('../models/color');
+const CategoriaModels = require('../models/categoria');
 
 const controller = {};
 
 controller.getAllProductoKardex = async (req, res) => {
     const productoKardexModels = await ProductoKardexModels.find();
     res.status(200).json(productoKardexModels);
+}
+
+controller.getAllProductoKardexIngreso = async (req, res) => {
+    var response = [];
+    const productoTallaKardexModels = await ProductoTallaKardexModels.find();
+    for (let i = 0; i < productoTallaKardexModels.length; i++) {
+        const productoKardexModels = await ProductoKardexModels.where('_id', productoTallaKardexModels[i].producto_kardex_id);
+        const modeloModels = await ModeloModels.where('_id', productoKardexModels[i].modelo_id);
+        const tipoCueroModels = await TipoCueroModels.where('_id', productoKardexModels[i].tipo_cuero_id);
+        const colorModels = await ColorModels.where('_id', productoKardexModels[i].color_id);
+        const categoriaModels = await CategoriaModels.where('_id', productoKardexModels[i].categoria_id);
+        var fecha_hora = new Date(moment(productoKardexModels[0].fecha).format('YYYY-MM-DD') + ' ' + productoKardexModels[0].hora)
+        response.push({
+            producto_talla_kardex_id: productoTallaKardexModels[i]._id,
+            fecha_hora: moment(fecha_hora).format('DD/MM/YYYY hh:mm A'),
+            modelo: modeloModels[0].nombre,
+            tipo_cuero: tipoCueroModels[0].nombre,
+            color: colorModels[0].nombre,
+            categoria: categoriaModels[0].nombre,
+            tallas: productoTallaKardexModels[i].talla,
+            cantidad_ingreso: productoTallaKardexModels[i].cantidad
+        })
+    }
+    res.status(200).json(response);
 }
 
 controller.createProductoKardexIngreso = async (req, res) => {
