@@ -18,25 +18,30 @@ controller.getAllProductoKardex = async (req, res) => {
 }
 
 controller.getAllProductoKardexIngreso = async (req, res) => {
+    const tipoKardexModels = await TipoKardexModels.findOne({nombre : 'INGRESO'});
+
     var response = [];
     const productoTallaKardexModels = await ProductoTallaKardexModels.find();
     for (let i = 0; i < productoTallaKardexModels.length; i++) {
-        const productoKardexModels = await ProductoKardexModels.where('_id', productoTallaKardexModels[i].producto_kardex_id);
-        const modeloModels = await ModeloModels.where('_id', productoKardexModels[i].modelo_id);
-        const tipoCueroModels = await TipoCueroModels.where('_id', productoKardexModels[i].tipo_cuero_id);
-        const colorModels = await ColorModels.where('_id', productoKardexModels[i].color_id);
-        const categoriaModels = await CategoriaModels.where('_id', productoKardexModels[i].categoria_id);
-        var fecha_hora = new Date(moment(productoKardexModels[0].fecha).format('YYYY-MM-DD') + ' ' + productoKardexModels[0].hora)
-        response.push({
-            producto_talla_kardex_id: productoTallaKardexModels[i]._id,
-            fecha_hora: moment(fecha_hora).format('DD/MM/YYYY hh:mm A'),
-            modelo: modeloModels[0].nombre,
-            tipo_cuero: tipoCueroModels[0].nombre,
-            color: colorModels[0].nombre,
-            categoria: categoriaModels[0].nombre,
-            tallas: productoTallaKardexModels[i].talla,
-            cantidad_ingreso: productoTallaKardexModels[i].cantidad
-        })
+        const productoKardexModels = await ProductoKardexModels.findById(productoTallaKardexModels[i].producto_kardex_id).where('tipo_kardex_id', tipoKardexModels._id).where('tienda_id', req.params.tienda_id);
+        if(productoKardexModels != null) {
+            const modeloModels = await ModeloModels.findById(productoKardexModels.modelo_id);
+            const tipoCueroModels = await TipoCueroModels.findById(productoKardexModels.tipo_cuero_id);
+            const colorModels = await ColorModels.findById(productoKardexModels.color_id);
+            const categoriaModels = await CategoriaModels.findById(productoKardexModels.categoria_id);
+            var fecha_hora = new Date(moment(productoKardexModels.fecha).format('YYYY-MM-DD') + ' ' + productoKardexModels.hora)
+            response.push({
+                producto_talla_kardex_id: productoTallaKardexModels[i]._id,
+                fecha_hora: moment(fecha_hora).format('DD/MM/YYYY hh:mm A'),
+                modelo: modeloModels.nombre,
+                tipo_cuero: tipoCueroModels.nombre,
+                color: colorModels.nombre,
+                categoria: categoriaModels.nombre,
+                tallas: productoTallaKardexModels[i].talla,
+                cantidad_ingreso: productoTallaKardexModels[i].cantidad
+            })
+        }
+        
     }
     res.status(200).json(response);
 }

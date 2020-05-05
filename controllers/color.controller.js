@@ -20,8 +20,11 @@ controller.getActiveColor = async (req, res) => {
 
 controller.createColor = async (req, res) => {
     const colorModels = new ColorModels(req.body);
-    await colorModels.save();
-    res.status(201).json(colorModels); 
+    await colorModels.save().then(() => {
+        res.status(201).json(colorModels);
+    }, (err) => {
+        res.status(500).json(err);
+    });
 }
 
 controller.getByIdColor = async (req, res) => {
