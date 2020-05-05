@@ -23,7 +23,7 @@ controller.getAllProductoKardexIngreso = async (req, res) => {
     var response = [];
     const productoTallaKardexModels = await ProductoTallaKardexModels.find();
     for (let i = 0; i < productoTallaKardexModels.length; i++) {
-        const productoKardexModels = await ProductoKardexModels.findById(productoTallaKardexModels[i].producto_kardex_id).where('tipo_kardex_id', tipoKardexModels._id).where('tienda_id', req.params.tienda_id);
+        const productoKardexModels = await ProductoKardexModels.findById(productoTallaKardexModels[i].producto_kardex_id).where('tipo_kardex_id', tipoKardexModels._id).where('tienda_id', req.query.tienda_id);
         if(productoKardexModels != null) {
             const modeloModels = await ModeloModels.findById(productoKardexModels.modelo_id);
             const tipoCueroModels = await TipoCueroModels.findById(productoKardexModels.tipo_cuero_id);
