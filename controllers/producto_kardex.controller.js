@@ -126,10 +126,10 @@ controller.createProductoKardexIngreso = async (req, res) => {
 
 controller.createProductoKardexEgreso = async (req, res) => {
 
-    const tipoKardexModels = await TipoKardexModels.findOne({nombre : 'INGRESO'});
+    const tipoKardexModels = await TipoKardexModels.findOne({nombre : 'EGRESO'});
 
     const productoTallaModels = await ProductoTallaModels.findById(req.body.producto_talla_id);
-
+    
     const productoModels = await ProductoModels.findById(productoTallaModels.producto_id);
 
     const producto_kardex = {
@@ -158,9 +158,9 @@ controller.createProductoKardexEgreso = async (req, res) => {
     await productoTallaKardexModels.save();
 
     const producto_talla = {
-        cantidad: productoTallaModels.cantidad - talla.cantidad,
+        cantidad: productoTallaModels.cantidad - req.body.cantidad,
     }
-    
+
     await ProductoTallaModels.findByIdAndUpdate(productoTallaModels._id, { $set: producto_talla }, { new: false });
 
     res.status(201).json(productoKardexModels); 
