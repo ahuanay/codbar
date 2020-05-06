@@ -38,6 +38,22 @@ controller.getByIdTiendaProducto = async (req, res) => {
     res.status(200).json(response);
 }
 
+controller.getByIdProductoTallaProducto = async (req, res) => {
+    const productoTallaModels = await ProductoTallaModels.findById(req.params.producto_talla_id);
+    const productoModels = await ProductoModels.findById(productoTallaModels.producto_id);
+    var respose = {
+        producto_talla_id: productoTallaModels._id,
+        modelo_id: productoModels.modelo_id,
+        categoria_id: productoModels.categoria_id,
+        tipo_cuero_id: productoModels.tipo_cuero_id,
+        color_id: productoModels.color_id,
+        precio: productoModels.precio,
+        tallas: productoTallaModels.talla,
+        cantidad: productoTallaModels.cantidad,
+    }
+    res.status(200).json(respose);
+}
+
 controller.createProducto = async (req, res) => {
 
     const producto = {
