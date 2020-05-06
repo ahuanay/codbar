@@ -1,11 +1,41 @@
 const ProductoModels = require('../models/producto');
 const ProductoTallaModels = require('../models/producto_talla');
+const ModeloModels = require('../models/modelo');
+const TipoCueroModels = require('../models/tipo_cuero');
+const ColorModels = require('../models/color');
+const CategoriaModels = require('../models/categoria');
 
 const controller = {};
 
 controller.getAllProducto = async (req, res) => {
     const productoModels = await ProductoModels.find();
     res.status(200).json(productoModels);
+}
+
+controller.getByIdTiendaProducto = async (req, res) => {
+    var response = [];
+    const productoTallaModels = await ProductoTallaModels.find();
+    for (let i = 0; i < productoTallaModels.length; i++) {
+        const productoModels = await ProductoModels.findById(productoTallaModels[i].producto_id).where('tienda_id', req.params.tienda_id);
+        if(productoModels != null) {
+            const modeloModels = await ModeloModels.findById(productoModels.modelo_id);
+            const tipoCueroModels = await TipoCueroModels.findById(productoModels.tipo_cuero_id);
+            const colorModels = await ColorModels.findById(productoModels.color_id);
+            const categoriaModels = await CategoriaModels.findById(productoModels.categoria_id);
+            response.push({
+                producto_talla_id: productoTallaModels[i]._id,
+                precio: productoModels.precio,
+                modelo: modeloModels.nombre,
+                tipo_cuero: tipoCueroModels.nombre,
+                color: colorModels.nombre,
+                categoria: categoriaModels.nombre,
+                tallas: productoTallaModels[i].talla,
+                cantidad: productoTallaModels[i].cantidad
+            })
+        }
+        
+    }
+    res.status(200).json(response);
 }
 
 controller.createProducto = async (req, res) => {
