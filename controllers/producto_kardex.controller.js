@@ -126,46 +126,42 @@ controller.createProductoKardexIngreso = async (req, res) => {
 
 controller.createProductoKardexEgreso = async (req, res) => {
 
+    const tipoKardexModels = await TipoKardexModels.findOne({nombre : 'INGRESO'});
+
+    const productoTallaModels = await ProductoTallaModels.findById(req.body.producto_talla_id);
+
+    const productoModels = await ProductoModels.findById(productoTallaModels.producto_id);
+
     const producto_kardex = {
-        precio: req.body.precio,
         fecha: req.body.fecha,
         hora: req.body.hora,
         empleado_id: req.body.empleado_id,
-        tipo_kardex_id: req.body.tipo_kardex_id,
         tienda_id: req.body.tienda_id,
-        modelo_id: req.body.modelo_id,
-        categoria_id: req.body.categoria_id,
-        tipo_cuero_id: req.body.tipo_cuero_id,
-        color_id: req.body.color_id
+        tipo_kardex_id: tipoKardexModels._id,
+        precio: productoModels.precio,
+        modelo_id: productoModels.modelo_id,
+        categoria_id: productoModels.categoria_id,
+        tipo_cuero_id: productoModels.tipo_cuero_id,
+        color_id: productoModels.color_id,
     }
-
-    const productoSearch =  await ProductoModels.where('precio', producto_kardex.precio)
-                                        .where('tienda_id', producto_kardex.tienda_id)
-                                        .where('modelo_id', producto_kardex.modelo_id)
-                                        .where('categoria_id', producto_kardex.categoria_id)
-                                        .where('tipo_cuero_id', producto_kardex.tipo_cuero_id)
-                                        .where('color_id', producto_kardex.color_id);
 
     const productoKardexModels = new ProductoKardexModels(producto_kardex);
     await productoKardexModels.save();
 
-    const talla = req.body.talla;
-
     const productos_talla_kardex = {
-        talla: talla.talla,
-        cantidad: talla.cantidad,
-        producto_kardex_id: productoSearch[0]._id
+        talla: productoTallaModels.talla,
+        cantidad: req.body.cantidad,
+        producto_kardex_id: productoKardexModels._id
     }
-
-    const productoTallaSearch = await ProductoTallaModels.where('producto_id', productoSearch[0]._id).where('talla', talla.talla);
-
-    const producto_talla = {
-        cantidad: productoTallaSearch[0].cantidad - talla.cantidad,
-    }
-    await ProductoTallaModels.findByIdAndUpdate(productoTallaSearch[0]._id, { $set: producto_talla }, { new: false });
 
     var productoTallaKardexModels = new ProductoTallaKardexModels(productos_talla_kardex);
     await productoTallaKardexModels.save();
+
+    const producto_talla = {
+        cantidad: productoTallaModels.cantidad - talla.cantidad,
+    }
+    
+    await ProductoTallaModels.findByIdAndUpdate(productoTallaModels._id, { $set: producto_talla }, { new: false });
 
     res.status(201).json(productoKardexModels); 
 }
