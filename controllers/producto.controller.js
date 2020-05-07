@@ -97,7 +97,7 @@ controller.getByIdProducto = async (req, res) => {
     res.status(200).json(productoModels);
 }
 
-controller.getPrecioProductoKardex = async (req, res) => {
+controller.getPrecioProducto = async (req, res) => {
     const search = {
         modelo_id: req.query.modelo_id,
         categoria_id: req.query.categoria_id,
