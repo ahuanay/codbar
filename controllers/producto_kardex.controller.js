@@ -46,7 +46,39 @@ controller.getAllProductoKardexIngreso = async (req, res) => {
     res.status(200).json(response);
 }
 
+controller.getAllProductoKardexEgreso = async (req, res) => {
+    const tipoKardexModels = await TipoKardexModels.findOne({nombre : 'EGRESO'});
+
+    var response = [];
+    const productoTallaKardexModels = await ProductoTallaKardexModels.find();
+    for (let i = 0; i < productoTallaKardexModels.length; i++) {
+        const productoKardexModels = await ProductoKardexModels.findById(productoTallaKardexModels[i].producto_kardex_id).where('tipo_kardex_id', tipoKardexModels._id).where('tienda_id', req.query.tienda_id);
+        if(productoKardexModels != null) {
+            const modeloModels = await ModeloModels.findById(productoKardexModels.modelo_id);
+            const tipoCueroModels = await TipoCueroModels.findById(productoKardexModels.tipo_cuero_id);
+            const colorModels = await ColorModels.findById(productoKardexModels.color_id);
+            const categoriaModels = await CategoriaModels.findById(productoKardexModels.categoria_id);
+            var fecha_hora = new Date(moment(productoKardexModels.fecha).format('YYYY-MM-DD') + ' ' + productoKardexModels.hora)
+            response.push({
+                producto_talla_kardex_id: productoTallaKardexModels[i]._id,
+                fecha_hora: moment(fecha_hora).format('DD/MM/YYYY hh:mm A'),
+                modelo: modeloModels.nombre,
+                tipo_cuero: tipoCueroModels.nombre,
+                color: colorModels.nombre,
+                categoria: categoriaModels.nombre,
+                tallas: productoTallaKardexModels[i].talla,
+                cantidad_ingreso: productoTallaKardexModels[i].cantidad
+            })
+        }
+        
+    }
+    res.status(200).json(response);
+}
+
+
 controller.createProductoKardexIngreso = async (req, res) => {
+
+    const tipoKardexModels = await TipoKardexModels.findOne({nombre : 'INGRESO'});
 
     var producto_id;
 
@@ -55,7 +87,7 @@ controller.createProductoKardexIngreso = async (req, res) => {
         fecha: req.body.fecha,
         hora: req.body.hora,
         empleado_id: req.body.empleado_id,
-        tipo_kardex_id: req.body.tipo_kardex_id,
+        tipo_kardex_id: tipoKardexModels._id,
         tienda_id: req.body.tienda_id,
         modelo_id: req.body.modelo_id,
         categoria_id: req.body.categoria_id,

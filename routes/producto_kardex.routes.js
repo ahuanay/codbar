@@ -5,6 +5,7 @@ const producto_kardex = require('../controllers/producto_kardex.controller');
 
 router.get('/', producto_kardex.getAllProductoKardex);
 router.get('/ingreso/', producto_kardex.getAllProductoKardexIngreso);
+router.get('/egreso/', producto_kardex.getAllProductoKardexEgreso);
 router.post('/ingreso/', producto_kardex.createProductoKardexIngreso);
 router.post('/egreso/', producto_kardex.createProductoKardexEgreso);
 router.get('/:id', producto_kardex.getByIdProductoKardex);
