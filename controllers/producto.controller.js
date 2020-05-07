@@ -97,6 +97,27 @@ controller.getByIdProducto = async (req, res) => {
     res.status(200).json(productoModels);
 }
 
+controller.getPrecioProductoKardex = async (req, res) => {
+    const search = {
+        modelo_id: req.query.modelo_id,
+        categoria_id: req.query.categoria_id,
+        tipo_cuero_id: req.query.tipo_cuero_id,
+        color_id: req.query.color_id,
+        tienda_id: req.query.tienda_id
+    }
+    try {
+        const productoModels = await ProductoModels.findOne(search);
+        res.status(200).json({ precio: productoModels.precio })
+    } catch (e) {
+        var error = {
+            message: 'Error. El id no existe',
+            path: e.path,
+            value: e.value,
+        }
+        res.status(500).json(error);
+    }
+}
+
 controller.putProducto = async (req, res) => {
     const { id } = req.params;
     const producto = {

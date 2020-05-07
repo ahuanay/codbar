@@ -75,7 +75,6 @@ controller.getAllProductoKardexEgreso = async (req, res) => {
     res.status(200).json(response);
 }
 
-
 controller.createProductoKardexIngreso = async (req, res) => {
 
     const tipoKardexModels = await TipoKardexModels.findOne({nombre : 'INGRESO'});
