@@ -11,6 +11,7 @@ const schemaOptions = {
 const ProductoTallaSchema = new Schema({
     talla: { type: Number, required: true },
     cantidad: { type: Number, required: true },
+    tienda_id: { type: Schema.Types.ObjectId, ref: 'tienda' },
     producto_id: { type: Schema.Types.ObjectId, ref: 'producto' },
 }, schemaOptions);
 

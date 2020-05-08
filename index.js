@@ -38,14 +38,34 @@ const server = app.listen(app.get('port'), () => {
 const io = socketIO(server);
 
 io.on('connection', (socket) => {
-    console.log('new connection', socket.id);
-    socket.emit('test', 'hola mundo como estas');
+    // io.sockets.emit - envia a todos
+    // socket.broadcast.emit - envia a todos menos al que esta enviando
 
-    socket.on('chat:message', (data) => {
-        io.sockets.emit('chat:message', data);
+    socket.on('models:modelo', (data) => {
+        socket.broadcast.emit('models:modelo', data);
     })
 
-    socket.on('chat:typing', (data) => {
-        socket.broadcast.emit('chat:typing', data);
+    socket.on('models:categoria', (data) => {
+        socket.broadcast.emit('models:categoria', data);
+    })
+
+    socket.on('models:color', (data) => {
+        socket.broadcast.emit('models:color', data);
+    })
+
+    socket.on('models:tienda', (data) => {
+        socket.broadcast.emit('models:tienda', data);
+    })
+
+    socket.on('models:tipo-cuero', (data) => {
+        socket.broadcast.emit('models:tipo-cuero', data);
+    })
+
+    socket.on('models:producto-ingreso', (data) => {
+        socket.broadcast.emit('models:producto-ingreso', data);
+    })
+
+    socket.on('models:producto-egreso', (data) => {
+        socket.broadcast.emit('models:producto-egreso', data);
     })
 })

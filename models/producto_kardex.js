@@ -9,12 +9,7 @@ const schemaOptions = {
 };
 
 const ProductoKardexSchema = new Schema({
-    precio: { type: Number, required: true },
-    fecha: { type: Date, required: true },
-    hora: { type: String, required: true },
-    empleado_id: { type: Schema.Types.ObjectId, ref: 'empleado' },
-    tipo_kardex_id: { type: Schema.Types.ObjectId, ref: 'tipo_kardex' },
-    tienda_id: { type: Schema.Types.ObjectId, ref: 'tienda' },
+    precio: { type: Number, required: true },  
     modelo_id: { type: Schema.Types.ObjectId, ref: 'modelo' },
     categoria_id: { type: Schema.Types.ObjectId, ref: 'categoria' },
     tipo_cuero_id: { type: Schema.Types.ObjectId, ref: 'tipo_cuero' },

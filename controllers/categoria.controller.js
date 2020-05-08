@@ -27,7 +27,7 @@ controller.createCategoria = async (req, res) => {
 controller.getByIdCategoria = async (req, res) => {
     const categoriaModels = await CategoriaModels.findById(req.params.id);
     if(categoriaModels == null) {
-        res.status(404).json({ error : 'El categoría no existe' });
+        res.status(404).json({ error : 'La categoría no existe' });
         return;
     }
     res.status(200).json(categoriaModels);

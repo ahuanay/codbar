@@ -10,7 +10,6 @@ const schemaOptions = {
 
 const ProductoSchema = new Schema({
     precio: { type: Number, required: true },
-    tienda_id: { type: Schema.Types.ObjectId, ref: 'tienda' },
     modelo_id: { type: Schema.Types.ObjectId, ref: 'modelo' },
     categoria_id: { type: Schema.Types.ObjectId, ref: 'categoria' },
     tipo_cuero_id: { type: Schema.Types.ObjectId, ref: 'tipo_cuero' },
