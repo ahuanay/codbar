@@ -17,6 +17,7 @@ const ProductoTallaKardexSchema = new Schema({
     tienda_destino_id: { type: Schema.Types.ObjectId, ref: 'tienda' },
     empleado_id: { type: Schema.Types.ObjectId, ref: 'empleado' },
     tipo_kardex_id: { type: Schema.Types.ObjectId, ref: 'tipo_kardex' },
+    venta: { type: Boolean, required:true },
     producto_kardex_id: { type: Schema.Types.ObjectId, ref: 'producto_kardex' },
 }, schemaOptions);
 

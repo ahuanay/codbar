@@ -63,7 +63,8 @@ controller.getAllProductoKardexEgreso = async (req, res) => {
                 categoria: productoKardexModels.categoria_id.nombre,
                 tallas: productoTallaKardexModels[i].talla,
                 cantidad_ingreso: productoTallaKardexModels[i].cantidad,
-                tienda_destino: productoTallaKardexModels[i].tienda_destino_id.nombre
+                tienda_destino: productoTallaKardexModels[i].tienda_destino_id.nombre,
+                venta: false
             })
         }
         
