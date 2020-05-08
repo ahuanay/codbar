@@ -135,9 +135,11 @@ controller.createProductoKardexIngreso = async (req, res) => {
             }
             const productoTallaModels = new ProductoTallaModels(productos_talla);
             await productoTallaModels.save();
+
         } else {
             var productoTallaSearch = await ProductoTallaModels.findOne({ producto_id: producto_id })
-                                                                .where('talla', tallas[i].talla);
+                                                                .where('talla', tallas[i].talla)
+                                                                .where('tienda_id', req.body.tienda_id);
             if(productoTallaSearch == null) {
                 var productos_talla = {
                     talla: tallas[i].talla,
