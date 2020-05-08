@@ -19,17 +19,14 @@ controller.getActiveModelo = async (req, res) => {
 }
 
 controller.createModelo = async (req, res) => {
-    // res.json(req.file.filename);
-    
     const modelo = {
         nombre: req.body.nombre,
-        imagen_url: req.file.filename,
+        imagen_url: 'http://' + req.headers.host + '/images/producto/'+req.file.filename,
         estado: req.body.estado == 'true' ? true : false
     }
-    res.json(req.headers.host)
-    // const modeloModels = new ModeloModels(req.body);
-    // await modeloModels.save();
-    // res.status(201).json(modeloModels); 
+    const modeloModels = new ModeloModels(modelo);
+    await modeloModels.save();
+    res.status(201).json(modeloModels); 
 }
 
 controller.getByIdModelo = async (req, res) => {

@@ -18,6 +18,8 @@ app.use((req, res, next) => {
 app.use(morgan('start'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// app.use(express.static('images/avatar'));
+app.use('/images', express.static('./images'));
 
 app.use('/api/empleados', require('./routes/empleado.routes'));
 app.use('/api/usuarios', require('./routes/usuario.routes'));
