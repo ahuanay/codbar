@@ -1,9 +1,5 @@
 const ProductoModels = require('../models/producto');
 const ProductoTallaModels = require('../models/producto_talla');
-const ModeloModels = require('../models/modelo');
-const TipoCueroModels = require('../models/tipo_cuero');
-const ColorModels = require('../models/color');
-const CategoriaModels = require('../models/categoria');
 
 const controller = {};
 

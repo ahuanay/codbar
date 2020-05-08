@@ -5,10 +5,6 @@ const ProductoTallaKardexModels = require('../models/producto_talla_kardex');
 const TipoKardexModels = require('../models/tipo_kardex');
 const ProductoModels = require('../models/producto');
 const ProductoTallaModels = require('../models/producto_talla');
-const ModeloModels = require('../models/modelo');
-const TipoCueroModels = require('../models/tipo_cuero');
-const ColorModels = require('../models/color');
-const CategoriaModels = require('../models/categoria');
 
 const controller = {};
 
@@ -49,7 +45,7 @@ controller.getAllProductoKardexEgreso = async (req, res) => {
     const tipoKardexModels = await TipoKardexModels.findOne({nombre : 'EGRESO'});
 
     var response = [];
-    const productoTallaKardexModels = await ProductoTallaKardexModels.where('tipo_kardex_id', tipoKardexModels._id).where('tienda_id', req.query.tienda_id);
+    const productoTallaKardexModels = await ProductoTallaKardexModels.where('tipo_kardex_id', tipoKardexModels._id).where('tienda_id', req.query.tienda_id).populate('tienda_destino_id');
     for (let i = 0; i < productoTallaKardexModels.length; i++) {
         const productoKardexModels = await ProductoKardexModels.findById(productoTallaKardexModels[i].producto_kardex_id)
                                                                 .populate('modelo_id')
@@ -66,7 +62,8 @@ controller.getAllProductoKardexEgreso = async (req, res) => {
                 color: productoKardexModels.color_id.nombre,
                 categoria: productoKardexModels.categoria_id.nombre,
                 tallas: productoTallaKardexModels[i].talla,
-                cantidad_ingreso: productoTallaKardexModels[i].cantidad
+                cantidad_ingreso: productoTallaKardexModels[i].cantidad,
+                tienda_destino: productoTallaKardexModels[i].tienda_destino_id.nombre
             })
         }
         
@@ -200,6 +197,7 @@ controller.createProductoKardexEgreso = async (req, res) => {
         hora: req.body.hora,
         empleado_id: req.body.empleado_id,
         tienda_id: req.body.tienda_id,
+        tienda_destino_id:  req.body.tienda_destino_id,
         tipo_kardex_id: tipoKardexModels._id, 
         talla: productoTallaModels.talla,
         cantidad: req.body.cantidad,
@@ -215,7 +213,7 @@ controller.createProductoKardexEgreso = async (req, res) => {
 
     await ProductoTallaModels.findByIdAndUpdate(productoTallaModels._id, { $set: producto_talla }, { new: false });
 
-    res.status(201).json(productoKardexModels); 
+    res.status(201).json(productos_talla_kardex); 
 }
 
 controller.getByIdProductoKardex = async (req, res) => {
