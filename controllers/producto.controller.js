@@ -14,7 +14,8 @@ controller.getAllProducto = async (req, res) => {
 
 controller.getByIdTiendaProducto = async (req, res) => {
     var response = [];
-    const productoTallaModels = await ProductoTallaModels.findOne({ tienda_id: req.params.tienda_id });
+    const productoTallaModels = await ProductoTallaModels.where('tienda_id', req.params.tienda_id);
+    
     for (let i = 0; i < productoTallaModels.length; i++) {
         const productoModels = await ProductoModels.findById(productoTallaModels[i].producto_id)
                                                     .populate('modelo_id')

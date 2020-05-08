@@ -49,22 +49,22 @@ controller.getAllProductoKardexEgreso = async (req, res) => {
     const tipoKardexModels = await TipoKardexModels.findOne({nombre : 'EGRESO'});
 
     var response = [];
-    const productoTallaKardexModels = await ProductoTallaKardexModels.find();
+    const productoTallaKardexModels = await ProductoTallaKardexModels.where('tipo_kardex_id', tipoKardexModels._id).where('tienda_id', req.query.tienda_id);
     for (let i = 0; i < productoTallaKardexModels.length; i++) {
-        const productoKardexModels = await ProductoKardexModels.findById(productoTallaKardexModels[i].producto_kardex_id).where('tipo_kardex_id', tipoKardexModels._id).where('tienda_id', req.query.tienda_id);
+        const productoKardexModels = await ProductoKardexModels.findById(productoTallaKardexModels[i].producto_kardex_id)
+                                                                .populate('modelo_id')
+                                                                .populate('tipo_cuero_id')
+                                                                .populate('color_id')
+                                                                .populate('categoria_id');
         if(productoKardexModels != null) {
-            const modeloModels = await ModeloModels.findById(productoKardexModels.modelo_id);
-            const tipoCueroModels = await TipoCueroModels.findById(productoKardexModels.tipo_cuero_id);
-            const colorModels = await ColorModels.findById(productoKardexModels.color_id);
-            const categoriaModels = await CategoriaModels.findById(productoKardexModels.categoria_id);
-            var fecha_hora = new Date(moment(productoKardexModels.fecha).format('YYYY-MM-DD') + ' ' + productoKardexModels.hora)
+            var fecha_hora = new Date(moment(productoTallaKardexModels[i].fecha).format('YYYY-MM-DD') + ' ' + productoTallaKardexModels[i].hora)
             response.push({
                 producto_talla_kardex_id: productoTallaKardexModels[i]._id,
                 fecha_hora: moment(fecha_hora).format('DD/MM/YYYY hh:mm A'),
-                modelo: modeloModels.nombre,
-                tipo_cuero: tipoCueroModels.nombre,
-                color: colorModels.nombre,
-                categoria: categoriaModels.nombre,
+                modelo: productoKardexModels.modelo_id.nombre,
+                tipo_cuero: productoKardexModels.tipo_cuero_id.nombre,
+                color: productoKardexModels.color_id.nombre,
+                categoria: productoKardexModels.categoria_id.nombre,
                 tallas: productoTallaKardexModels[i].talla,
                 cantidad_ingreso: productoTallaKardexModels[i].cantidad
             })
