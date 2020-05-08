@@ -172,12 +172,8 @@ controller.createProductoKardexEgreso = async (req, res) => {
     
     const productoModels = await ProductoModels.findById(productoTallaModels.producto_id);
 
+    var producto_kardex_id;
     const producto_kardex = {
-        fecha: req.body.fecha,
-        hora: req.body.hora,
-        empleado_id: req.body.empleado_id,
-        tienda_id: req.body.tienda_id,
-        tipo_kardex_id: tipoKardexModels._id,
         precio: productoModels.precio,
         modelo_id: productoModels.modelo_id,
         categoria_id: productoModels.categoria_id,
@@ -185,13 +181,29 @@ controller.createProductoKardexEgreso = async (req, res) => {
         color_id: productoModels.color_id,
     }
 
-    const productoKardexModels = new ProductoKardexModels(producto_kardex);
-    await productoKardexModels.save();
+    const productoKardexSearch =  await ProductoKardexModels.findOne({ precio: producto_kardex.precio })
+                                        .where('modelo_id', producto_kardex.modelo_id)
+                                        .where('categoria_id', producto_kardex.categoria_id)
+                                        .where('tipo_cuero_id', producto_kardex.tipo_cuero_id)
+                                        .where('color_id', producto_kardex.color_id);
+
+    if(productoKardexSearch == null) {
+        const productoKardexModels = new ProductoKardexModels(producto_kardex);
+        await productoKardexModels.save();
+        producto_kardex_id = productoKardexModels._id;
+    } else {
+        producto_kardex_id = productoKardexSearch._id;
+    }    
 
     const productos_talla_kardex = {
+        fecha: req.body.fecha,
+        hora: req.body.hora,
+        empleado_id: req.body.empleado_id,
+        tienda_id: req.body.tienda_id,
+        tipo_kardex_id: tipoKardexModels._id, 
         talla: productoTallaModels.talla,
         cantidad: req.body.cantidad,
-        producto_kardex_id: productoKardexModels._id
+        producto_kardex_id: producto_kardex_id
     }
 
     var productoTallaKardexModels = new ProductoTallaKardexModels(productos_talla_kardex);
