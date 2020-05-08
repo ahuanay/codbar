@@ -14,21 +14,21 @@ controller.getAllProducto = async (req, res) => {
 
 controller.getByIdTiendaProducto = async (req, res) => {
     var response = [];
-    const productoTallaModels = await ProductoTallaModels.find();
+    const productoTallaModels = await ProductoTallaModels.findOne({ tienda_id: req.params.tienda_id });
     for (let i = 0; i < productoTallaModels.length; i++) {
-        const productoModels = await ProductoModels.findById(productoTallaModels[i].producto_id).where('tienda_id', req.params.tienda_id);
+        const productoModels = await ProductoModels.findById(productoTallaModels[i].producto_id)
+                                                    .populate('modelo_id')
+                                                    .populate('tipo_cuero_id')
+                                                    .populate('color_id')
+                                                    .populate('categoria_id');
         if(productoModels != null) {
-            const modeloModels = await ModeloModels.findById(productoModels.modelo_id);
-            const tipoCueroModels = await TipoCueroModels.findById(productoModels.tipo_cuero_id);
-            const colorModels = await ColorModels.findById(productoModels.color_id);
-            const categoriaModels = await CategoriaModels.findById(productoModels.categoria_id);
             response.push({
                 producto_talla_id: productoTallaModels[i]._id,
                 precio: productoModels.precio,
-                modelo: modeloModels.nombre,
-                tipo_cuero: tipoCueroModels.nombre,
-                color: colorModels.nombre,
-                categoria: categoriaModels.nombre,
+                modelo: productoModels.modelo_id.nombre,
+                tipo_cuero: productoModels.tipo_cuero_id.nombre,
+                color: productoModels.color_id.nombre,
+                categoria: productoModels.categoria_id.nombre,
                 tallas: productoTallaModels[i].talla,
                 cantidad: productoTallaModels[i].cantidad
             })
@@ -102,8 +102,7 @@ controller.getPrecioProducto = async (req, res) => {
         modelo_id: req.query.modelo_id,
         categoria_id: req.query.categoria_id,
         tipo_cuero_id: req.query.tipo_cuero_id,
-        color_id: req.query.color_id,
-        tienda_id: req.query.tienda_id
+        color_id: req.query.color_id
     }
     try {
         const productoModels = await ProductoModels.findOne(search);
@@ -114,7 +113,7 @@ controller.getPrecioProducto = async (req, res) => {
             path: e.path,
             value: e.value,
         }
-        res.status(500).json(error);
+        res.status(404).json(error);
     }
 }
 

@@ -29,10 +29,6 @@ controller.getAllProductoKardexIngreso = async (req, res) => {
                                                                 .populate('color_id')
                                                                 .populate('categoria_id');
         if(productoKardexModels != null) {
-            // const modeloModels = await ModeloModels.findById(productoKardexModels.modelo_id);
-            // const tipoCueroModels = await TipoCueroModels.findById(productoKardexModels.tipo_cuero_id);
-            // const colorModels = await ColorModels.findById(productoKardexModels.color_id);
-            // const categoriaModels = await CategoriaModels.findById(productoKardexModels.categoria_id);
             var fecha_hora = new Date(moment(productoTallaKardexModels[i].fecha).format('YYYY-MM-DD') + ' ' + productoTallaKardexModels[i].hora)
             response.push({
                 producto_talla_kardex_id: productoTallaKardexModels[i]._id,
