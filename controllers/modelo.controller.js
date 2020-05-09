@@ -15,7 +15,7 @@ controller.getActiveModelo = async (req, res) => {
 controller.createModelo = async (req, res) => {
     const modelo = {
         nombre: req.body.nombre,
-        imagen_url: 'images/producto/'+req.file.filename,
+        imagen_url: 'images/producto/' + req.file.filename,
         estado: req.body.estado == 'true' ? true : false
     }
     const modeloModels = new ModeloModels(modelo);
@@ -46,7 +46,7 @@ controller.putModelo = async (req, res) => {
 
     const modelo = {
         nombre: req.body.nombre,
-        imagen_url: file == null ? modeloModels.imagen_url : 'images/producto/'+req.file.filename,
+        imagen_url: file == null ? modeloModels.imagen_url : 'images/producto/' + req.file.filename,
         estado: req.body.estado == 'true' ? true : false
     }
 
