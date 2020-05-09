@@ -20,7 +20,7 @@ router.get('/', modelo.getAllModelo);
 router.get('/activos/', modelo.getActiveModelo);
 router.post('/', upload.single('file'), modelo.createModelo);
 router.get('/:id', modelo.getByIdModelo);
-router.put('/:id', modelo.putModelo);
+router.put('/:id', upload.single('file'), modelo.putModelo);
 router.delete('/:id', modelo.deleteModelo);
 
 module.exports = router;

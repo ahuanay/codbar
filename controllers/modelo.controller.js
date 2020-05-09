@@ -1,5 +1,5 @@
 const ModeloModels = require('../models/modelo');
-
+var fs = require('fs'); 
 const controller = {};
 
 controller.getAllModelo = async (req, res) => {
@@ -8,20 +8,14 @@ controller.getAllModelo = async (req, res) => {
 }
 
 controller.getActiveModelo = async (req, res) => {
-    var activosModels = [];
-    const modeloModels = await ModeloModels.find();
-    modeloModels.forEach(e => {
-        if(e.estado) {
-            activosModels.push(e);
-        }
-    });
-    res.status(200).json(activosModels);
+    const modeloModels = await ModeloModels.where('estado', true);
+    res.status(200).json(modeloModels);
 }
 
 controller.createModelo = async (req, res) => {
     const modelo = {
         nombre: req.body.nombre,
-        imagen_url: 'http://' + req.headers.host + '/images/producto/'+req.file.filename,
+        imagen_url: 'images/producto/'+req.file.filename,
         estado: req.body.estado == 'true' ? true : false
     }
     const modeloModels = new ModeloModels(modelo);
@@ -40,16 +34,29 @@ controller.getByIdModelo = async (req, res) => {
 
 controller.putModelo = async (req, res) => {
     const { id } = req.params;
+    const modeloModelsById = await ModeloModels.findById(id);
+    var file = null;
+
+    if(req.file == null){
+        file = null;
+    } else {
+        fs.unlinkSync(modeloModelsById.imagen_url);
+        file = req.file;
+    }
+
     const modelo = {
         nombre: req.body.nombre,
-        imagen_url: req.body.imagen_url,
-        estado: req.body.estado
+        imagen_url: file == null ? modeloModels.imagen_url : 'images/producto/'+req.file.filename,
+        estado: req.body.estado == 'true' ? true : false
     }
+
     const modeloModels = await ModeloModels.findByIdAndUpdate(id, { $set: modelo }, { new: true });
     res.status(200).json(modeloModels);
 }
 
 controller.deleteModelo = async (req, res) => {
+    const modeloModelsById = await ModeloModels.findById(req.params.id);
+    fs.unlinkSync(modeloModelsById.imagen_url);
     const modeloModels = await ModeloModels.findByIdAndRemove(req.params.id);
     res.status(200).json(modeloModels);
 }
