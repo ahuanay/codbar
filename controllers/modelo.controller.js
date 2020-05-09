@@ -18,9 +18,10 @@ controller.createModelo = async (req, res) => {
         imagen_url: 'images/producto/' + req.file.filename,
         estado: req.body.estado == 'true' ? true : false
     }
-    const modeloModels = new ModeloModels(modelo);
-    await modeloModels.save();
-    res.status(201).json(modeloModels); 
+    res.json(modelo);
+    // const modeloModels = new ModeloModels(modelo);
+    // await modeloModels.save();
+    // res.status(201).json(modeloModels); 
 }
 
 controller.getByIdModelo = async (req, res) => {
