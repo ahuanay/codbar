@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "valiant-student-239905",
+  "private_key_id": "aaf509a2bd937e05c41fb2e14d7f0515cb8819d6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCxFLWDXd8QJKtm\nHeQUjEb2+gG8Sg/TGHe7tb7JrggzgxFduESYs+aON2FDb+xdL8ufGndUsU1npVAG\nIX7L5MYFQYZBXxpQxei8dX8qffDWDLcCV8spBAw5b1XxWimL+DIRJ+z49fTNXqaB\nwkXyH64OvVL10vDjSpWPQe6RO4OjmZUqbO9OV0zDF3V4mOXyDYQMLyJyO4GwNnbd\nJZtS97vUgEjy52paOiMGSqKM15H/KX3G5/hr0Ae1yg5yY0JEQd5/x0GUKN0GUQ3j\n543Q+oR4eePR7Q1u8+knQccTMTL1DjjG6l/nXh6sogNUDRN4EL0n+QJIVz/eVMPz\nxeKkTWDfAgMBAAECggEAKNaHzdX2PXjXdmNqWDrJmuepQs0pvRslccrGRyi1h3uw\no5Z9a2IBx8aJzc2gCxWctgKahpOlMEP1opRS85689DVaSvUt0nbx55SJUTleM18X\nTZkFp13hm9VLUq/iaP9CPKaihf/jBwHPEJnHG8GmmIuc+Eg/eYuX1kP0StYY07+T\nbGpU0dghHxmIhlgykmivH/cUv5iJ+XIGo3zlhem8y7A9o59Dtdtzqq4w3WoJIPHO\nNpzTObVIxexGi+G3SWUfpXXMDaj5oYYiDnV2ST+S3t1Oe6CGkz7D6Y8ysATaPbjg\ntO0hYwQuZ76Qiaqvs+IL67A9VboiIpgbcGcIN0jdQQKBgQDVQ54Eia9d9L0WZPFd\nOo9K1xu0bCswDJyqwpsYEz9ekM7qSAfGMOhE2LBUJc36fHraxcSroY4GJiHYfs+d\nBLRqxJISiYTfCylz/WHvi1Z9eKE4F6Hdga+cpMjDnDYHM3pd4QGfCrgY7zzX7ui4\ne2c1BtsWEuYj8MWOlJWBj1ysTwKBgQDUkOc4EekpUqCRjcxxd7empjfEOfCVoNKs\nZ3J6QhH0OZ05nA31/IzR6a8dHqnQxynS3S2RLSqw+99rpF7Y2zSLTItwomvFKauW\ntMQ1UAJV9ObGM+zFj3nE7tKlGY8rk7l74StZGP0giXJxrwErR7OYoaOltq/zgHDs\nQlGZ2jcOcQKBgEOiHgryX1s8snrXqHQYjjj93xto8oladpTxAp6v+/jRk81Y6p5A\nBGlRDxqgoqI9t/iJn8WOhqwMi89M6Cqzw0PY8zpNwoW51Hukb9q4JcXE69wOIpdM\n+ZSD7eebMsc13CjJoun9TEUcGf+hFMzs1d5LPk/Rzoq3YO/Gz2M3Q/yhAoGAdMYh\n78CPKX9V7IBMlu0gu/FGY4s86sZN1h6CWj2fpV5dTD+5v6/9IHhTFhk5SxOOm2Oc\nW8vHTzEfXQAQhuttYzUqyTbBI7Avrnwh6fPJRLVkbfAqm6GlUJWurLps15Cw7igV\n6z16GXzInUF5z+/07t2ljCzfXlLqNjB8qZuicVECgYBKsPi6+KB8FVXVUJriEHhh\nO3/+hp3VgA7x3Zzx6iQZAt+Mqb1uDqmxghgDBocN7n+00tomwYkfF9uPCtjamk62\nBsTfxpoznb6GyNjXZdnGjubHY8rimFCi3YzRzWbJpxIYeADDbqwWUDCbTLt0tUKD\n3ps5Co2AcyDhTN5zUzRw6Q==\n-----END PRIVATE KEY-----\n",
+  "client_email": "deyfus-storage@valiant-student-239905.iam.gserviceaccount.com",
+  "client_id": "110127985158993099561",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/deyfus-storage%40valiant-student-239905.iam.gserviceaccount.com"
+}

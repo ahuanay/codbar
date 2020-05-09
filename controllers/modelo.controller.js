@@ -55,8 +55,8 @@ controller.putModelo = async (req, res) => {
 }
 
 controller.deleteModelo = async (req, res) => {
-    const modeloModelsById = await ModeloModels.findById(req.params.id);
-    fs.unlinkSync(modeloModelsById.imagen_url);
+    // const modeloModelsById = await ModeloModels.findById(req.params.id);
+    // fs.unlinkSync(modeloModelsById.imagen_url);
     const modeloModels = await ModeloModels.findByIdAndRemove(req.params.id);
     res.status(200).json(modeloModels);
 }
