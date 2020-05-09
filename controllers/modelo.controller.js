@@ -13,7 +13,7 @@ controller.getActiveModelo = async (req, res) => {
 }
 
 controller.createModelo = async (req, res) => {
-    res.json(req.file);
+    res.json('req.file');
     // const modelo = {
     //     nombre: req.body.nombre,
     //     imagen_url: 'images/producto/' + req.file.filename,
